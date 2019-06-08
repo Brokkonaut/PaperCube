@@ -1,14 +1,14 @@
-# EmpireCraft #
+# PaperCube #
 ## What ##
-EmpireCraft is a fork of Spigot used by the [Empire Minecraft](http://ref.emc.gs/Aikar?gam=EmpireCraft) Server.
+PaperCube is a fork of Paper used by the [Cubeside](https://cubeside.de) Server.
 
-It contains many gameplay changes to suit our server, but more importantly, contains new performance improvements pending
-testing to be contributed to Spigot / Sponge.
+It contains gameplay changes to suit our server, but more importantly, contains new performance improvements pending
+testing to be contributed to Paper / Spigot.
 
 We also have many API's that we privately use but choose to not publicly PR them upstream, see below for why.
 
 ## Why we don't release all API ##
-API's are tough to design. In public projects such as Bukkit, Spigot, Sponge etc, once an API is commited. It's almost
+API's are tough to design. In public projects such as Bukkit, Spigot, Paper etc, once an API is commited. It's almost
 forever. You can't go breaking it without solid justification. This is the politics game.
 
 With that in mind, much thought has to be given to the API in now and future use cases and applications to ensure it can
@@ -27,7 +27,7 @@ By contributing it upstream, we would give up that power.
 So that is why we have many extremely useful API's that are not PR'd upstream
 
 ## LICENSE / Support / Usage of Patches ##
-All patches written by Aikar, Starlis LLC, Contractors of Starlis LLC that has been included inside of EmpireCraft
+All patches written by Brokkonaut that have been included inside of PaperCube
 are licensed MIT, and are free to be used in your own fork.
 
 We offer ABSOLUTELY NO SUPPORT for these patches. If you wish to use them, you must take the effect to extract them

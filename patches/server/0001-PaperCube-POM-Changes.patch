@@ -1,15 +1,15 @@
-From ecafa5e60c3cc634632bdb3e3885ebe6f1c410b6 Mon Sep 17 00:00:00 2001
+From 36d45a2efddb5c0aae441e29e3bcc09ce600edc5 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 31 Oct 2012 23:26:58 -0400
-Subject: [PATCH] EmpireCraft POM Changes
+Subject: [PATCH] PaperCube POM Changes
 
 ---
- pom.xml                                       | 46 +++++++++++++++----
- .../bukkit/craftbukkit/util/Versioning.java   |  2 +-
+ pom.xml                                            | 46 ++++++++++++++++++----
+ .../org/bukkit/craftbukkit/util/Versioning.java    |  2 +-
  2 files changed, 39 insertions(+), 9 deletions(-)
 
 diff --git a/pom.xml b/pom.xml
-index c3844581..d2b8dde8 100644
+index c3844581..aa1e5df5 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -1,12 +1,13 @@
@@ -34,23 +34,23 @@ index c3844581..d2b8dde8 100644
 -        <groupId>com.destroystokyo.paper</groupId>
 -        <artifactId>paper-parent</artifactId>
 -        <version>dev-SNAPSHOT</version>
-+        <groupId>com.empireminecraft</groupId>
-+        <artifactId>empirecraft-parent</artifactId>
-+        <version>dev-1.12-R0.1-SNAPSHOT</version>
++        <groupId>de.cubeside</groupId>
++        <artifactId>papercube-parent</artifactId>
++        <version>dev-1.13.2-R0.1-SNAPSHOT</version>
          <relativePath>../pom.xml</relativePath>
      </parent>
  
-+    <artifactId>empirecraft</artifactId>
++    <artifactId>papercube</artifactId>
 +    <packaging>jar</packaging>
-+    <version>dev-1.12-R0.1-SNAPSHOT</version>
-+    <name>EmpireCraft-Server</name>
++    <version>dev-1.13.2-R0.1-SNAPSHOT</version>
++    <name>PaperCube-Server</name>
 +
      <dependencies>
          <dependency>
 -            <groupId>com.destroystokyo.paper</groupId>
 -            <artifactId>paper-api</artifactId>
-+            <groupId>com.empireminecraft</groupId>
-+            <artifactId>empirecraft-api</artifactId>
++            <groupId>de.cubeside</groupId>
++            <artifactId>papercube-api</artifactId>
              <version>${project.version}</version>
              <scope>compile</scope>
          </dependency>
@@ -91,13 +91,13 @@ index c3844581..d2b8dde8 100644
      <build>
 -        <finalName>paper-${minecraft.version}</finalName>
 -        <defaultGoal>clean install</defaultGoal> <!-- Paper -->
-+        <finalName>empirecraft</finalName>
++        <finalName>papercube</finalName>
 +        <defaultGoal>install</defaultGoal> <!-- Paper -->
          <plugins>
              <plugin>
                  <groupId>com.lukegb.mojo</groupId>
 diff --git a/src/main/java/org/bukkit/craftbukkit/util/Versioning.java b/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
-index 674096ca..0f7a5ab7 100644
+index 674096ca..03d006de 100644
 --- a/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
 +++ b/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
 @@ -11,7 +11,7 @@ public final class Versioning {
@@ -105,10 +105,10 @@ index 674096ca..0f7a5ab7 100644
          String result = "Unknown-Version";
  
 -        InputStream stream = Bukkit.class.getClassLoader().getResourceAsStream("META-INF/maven/com.destroystokyo.paper/paper-api/pom.properties");
-+        InputStream stream = Bukkit.class.getClassLoader().getResourceAsStream("META-INF/maven/com.empireminecraft/empirecraft-api/pom.properties"); // EMC
++        InputStream stream = Bukkit.class.getClassLoader().getResourceAsStream("META-INF/maven/de.cubeside/papercube-api/pom.properties"); // EMC
          Properties properties = new Properties();
  
          if (stream != null) {
 -- 
-2.19.1
+2.16.1.windows.1
 
