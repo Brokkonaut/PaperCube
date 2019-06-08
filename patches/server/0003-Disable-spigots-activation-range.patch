@@ -1,0 +1,211 @@
+From 8c1fd2f159cc1d7b48feefdd59be71250327b8e1 Mon Sep 17 00:00:00 2001
+From: Brokkonaut <hannos17@gmx.de>
+Date: Sat, 8 Jun 2019 22:49:14 +0200
+Subject: [PATCH] Disable spigots activation range
+
+It causes so many bugs..
+---
+ src/main/java/org/spigotmc/ActivationRange.java | 167 +-----------------------
+ 1 file changed, 4 insertions(+), 163 deletions(-)
+
+diff --git a/src/main/java/org/spigotmc/ActivationRange.java b/src/main/java/org/spigotmc/ActivationRange.java
+index 8f0a999b..c1c6b70c 100644
+--- a/src/main/java/org/spigotmc/ActivationRange.java
++++ b/src/main/java/org/spigotmc/ActivationRange.java
+@@ -79,27 +79,7 @@ public class ActivationRange
+      */
+     public static boolean initializeEntityActivationState(Entity entity, SpigotWorldConfig config)
+     {
+-        if ( ( entity.activationType == 3 && config.miscActivationRange == 0 )
+-                || ( entity.activationType == 2 && config.animalActivationRange == 0 )
+-                || ( entity.activationType == 1 && config.monsterActivationRange == 0 )
+-                || ( entity.activationType == 4 && config.waterActivationRange == 0 ) // Paper
+-                || entity instanceof EntityHuman
+-                || entity instanceof EntityProjectile
+-                || entity instanceof EntityEnderDragon
+-                || entity instanceof EntityComplexPart
+-                || entity instanceof EntityWither
+-                || entity instanceof EntityFireball
+-                || entity instanceof EntityWeather
+-                || entity instanceof EntityTNTPrimed
+-                || entity instanceof EntityFallingBlock // Paper - Always tick falling blocks
+-                || entity instanceof EntityEnderCrystal
+-                || entity instanceof EntityFireworks
+-                || entity instanceof EntityThrownTrident )
+-        {
+-            return true;
+-        }
+-
+-        return false;
++        return true; // PaperCube
+     }
+ 
+     /**
+@@ -110,44 +90,7 @@ public class ActivationRange
+      */
+     public static void activateEntities(World world)
+     {
+-        MinecraftTimings.entityActivationCheckTimer.startTiming();
+-        final int miscActivationRange = world.spigotConfig.miscActivationRange;
+-        final int animalActivationRange = world.spigotConfig.animalActivationRange;
+-        final int monsterActivationRange = world.spigotConfig.monsterActivationRange;
+-        final int waterActivationRange = world.spigotConfig.waterActivationRange; // Paper
+-
+-        int maxRange = Math.max( monsterActivationRange, animalActivationRange );
+-        maxRange = Math.max( maxRange, miscActivationRange );
+-        //maxRange = Math.min( ( world.spigotConfig.viewDistance << 4 ) - 8, maxRange ); Paper - Use player view distance API below instead
+-
+-        Chunk chunk; // Paper
+-        for ( EntityHuman player : world.players )
+-        {
+-            int playerMaxRange = maxRange = Math.min( ( player.getViewDistance() << 4 ) - 8, maxRange ); // Paper - Use player view distance API
+-            player.activatedTick = MinecraftServer.currentTick;
+-            maxBB = player.getBoundingBox().grow( playerMaxRange, 256, playerMaxRange ); // Paper - Use player view distance API
+-            miscBB = player.getBoundingBox().grow( miscActivationRange, 256, miscActivationRange );
+-            animalBB = player.getBoundingBox().grow( animalActivationRange, 256, animalActivationRange );
+-            waterBB = player.getBoundingBox().grow( waterActivationRange, 256, waterActivationRange ); // Paper
+-            monsterBB = player.getBoundingBox().grow( monsterActivationRange, 256, monsterActivationRange );
+-
+-            int i = MathHelper.floor( maxBB.minX / 16.0D );
+-            int j = MathHelper.floor( maxBB.maxX / 16.0D );
+-            int k = MathHelper.floor( maxBB.minZ / 16.0D );
+-            int l = MathHelper.floor( maxBB.maxZ / 16.0D );
+-
+-            for ( int i1 = i; i1 <= j; ++i1 )
+-            {
+-                for ( int j1 = k; j1 <= l; ++j1 )
+-                {
+-                    if ( (chunk = world.getChunkIfLoaded(i1, j1 )) != null ) // Paper
+-                    {
+-                        activateChunkEntities( chunk ); // Paper
+-                    }
+-                }
+-            }
+-        }
+-        MinecraftTimings.entityActivationCheckTimer.stopTiming();
++        // PaperCube
+     }
+ 
+     /**
+@@ -211,71 +154,7 @@ public class ActivationRange
+      */
+     public static boolean checkEntityImmunities(Entity entity)
+     {
+-        // Paper start - optimize Water cases
+-        if (entity instanceof EntityFish) {
+-            return false;
+-        }
+-        if (entity.inWater && (!(entity instanceof EntityInsentient) || !(((EntityInsentient) entity).getNavigation() instanceof NavigationGuardian))) {
+-            return true;
+-        }
+-        if (entity.fireTicks > 0) {
+-            return true;
+-        }
+-        // Paper end
+-        if ( !( entity instanceof EntityArrow ) )
+-        {
+-            if ( !entity.onGround || !entity.passengers.isEmpty() || entity.isPassenger() )
+-            {
+-                return true;
+-            }
+-        } else if ( !( (EntityArrow) entity ).inGround )
+-        {
+-            return true;
+-        }
+-        // special cases.
+-        if ( entity instanceof EntityLiving )
+-        {
+-            EntityLiving living = (EntityLiving) entity;
+-            if ( living.lastDamageByPlayerTime > 0 || living.hurtTicks > 0 || living.effects.size() > 0 ) // Paper
+-            {
+-                return true;
+-            }
+-            if ( entity instanceof EntityCreature )
+-            {
+-                // Paper start
+-                EntityCreature creature = (EntityCreature) entity;
+-                if (creature.getGoalTarget() != null || creature.getMovingTarget() != null) {
+-                    return true;
+-                }
+-                // Paper end
+-            }
+-            if ( entity instanceof EntityVillager && ( (EntityVillager) entity ).isInLove() )
+-            {
+-                return true;
+-            }
+-            // Paper start
+-            if ( entity instanceof EntityLlama && ( (EntityLlama ) entity ).inCaravan() )
+-            {
+-                return true;
+-            }
+-            // Paper end
+-            if ( entity instanceof EntityAnimal )
+-            {
+-                EntityAnimal animal = (EntityAnimal) entity;
+-                if ( animal.isBaby() || animal.isInLove() )
+-                {
+-                    return true;
+-                }
+-                if ( entity instanceof EntitySheep && ( (EntitySheep) entity ).isSheared() )
+-                {
+-                    return true;
+-                }
+-            }
+-            if (entity instanceof EntityCreeper && ((EntityCreeper) entity).isIgnited()) { // isExplosive
+-                return true;
+-            }
+-        }
+-        return false;
++        return true; // PaperCube
+     }
+ 
+     /**
+@@ -286,44 +165,6 @@ public class ActivationRange
+      */
+     public static boolean checkIfActive(Entity entity)
+     {
+-        // Never safe to skip fireworks or entities not yet added to chunk
+-        if ( !entity.inChunk || entity instanceof EntityFireworks ) {
+-            return true;
+-        }
+-
+-        boolean isActive = entity.activatedTick >= MinecraftServer.currentTick || entity.defaultActivationState;
+-
+-        // Should this entity tick?
+-        if ( !isActive )
+-        {
+-            if ( ( MinecraftServer.currentTick - entity.activatedTick - 1 ) % 20 == 0 )
+-            {
+-                // Check immunities every 20 ticks.
+-                if ( checkEntityImmunities( entity ) )
+-                {
+-                    // Triggered some sort of immunity, give 20 full ticks before we check again.
+-                    entity.activatedTick = MinecraftServer.currentTick + 20;
+-                }
+-                isActive = true;
+-            }
+-            // Add a little performance juice to active entities. Skip 1/4 if not immune.
+-        } else if ( !entity.defaultActivationState && entity.ticksLived % 4 == 0 && !checkEntityImmunities( entity ) )
+-        {
+-            isActive = false;
+-        }
+-        //int x = MathHelper.floor( entity.locX ); // Paper
+-        //int z = MathHelper.floor( entity.locZ ); // Paper
+-        // Make sure not on edge of unloaded chunk
+-        Chunk chunk = entity.getChunkAtLocation(); // Paper
+-        if ( isActive && !( chunk != null && chunk.areNeighborsLoaded( 1 ) ) )
+-        {
+-            isActive = false;
+-        }
+-        // Paper start - Skip ticking in chunks scheduled for unload
+-        else if (entity.world.paperConfig.skipEntityTickingInChunksScheduledForUnload && (chunk == null || chunk.scheduledForUnload != null)) {
+-            isActive = false;
+-        }
+-        // Paper end
+-        return isActive;
++        return true; // PaperCube
+     }
+ }
+-- 
+2.16.1.windows.1
+
