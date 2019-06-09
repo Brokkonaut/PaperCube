@@ -1,4 +1,4 @@
-From 870d8f55a26702aa96c667e82cda64c71599379d Mon Sep 17 00:00:00 2001
+From f3c5ea5e6937e9d7357aba3838bea9c3767623a9 Mon Sep 17 00:00:00 2001
 From: Brokkonaut <hannos17@gmx.de>
 Date: Sat, 8 Jun 2019 20:47:51 +0200
 Subject: [PATCH] We are known as PaperCube
@@ -8,10 +8,10 @@ Subject: [PATCH] We are known as PaperCube
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index 32bf4e58..84cb90a6 100644
+index 9fb6c0990..13da470cf 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-@@ -164,7 +164,7 @@ import javax.annotation.Nonnull; // Paper
+@@ -169,7 +169,7 @@ import javax.annotation.Nonnull; // Paper
  
  
  public final class CraftServer implements Server {

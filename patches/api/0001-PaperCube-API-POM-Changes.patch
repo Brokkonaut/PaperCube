@@ -1,4 +1,4 @@
-From 904787f7d50b341158e3c22352f1fecf10bdd1eb Mon Sep 17 00:00:00 2001
+From 7950e022fa9e73d494dd3bb943542e3c905c6b50 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Tue, 8 Jan 2013 23:50:41 -0500
 Subject: [PATCH] PaperCube-API POM Changes
@@ -8,7 +8,7 @@ Subject: [PATCH] PaperCube-API POM Changes
  1 file changed, 12 insertions(+), 1 deletion(-)
 
 diff --git a/pom.xml b/pom.xml
-index 3347be41..e952485c 100644
+index 13cdc25f..5d20110f 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -2,7 +2,7 @@
@@ -37,7 +37,7 @@ index 3347be41..e952485c 100644
 +    <name>PaperCube-API</name>
  
      <properties>
-         <!-- Paper - #Logic -->
+         <!-- <skipTests>true</skipTests> Paper - This [was] not going to end well -->
 -- 
 2.16.1.windows.1
 

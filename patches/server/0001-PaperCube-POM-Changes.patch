@@ -1,4 +1,4 @@
-From ee9ae93f6780a837675c0cf325b6bc7fc1b8774f Mon Sep 17 00:00:00 2001
+From 3bb1bc97a6e57fffde6c27c450573d543f9d0909 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 31 Oct 2012 23:26:58 -0400
 Subject: [PATCH] PaperCube POM Changes
@@ -9,7 +9,7 @@ Subject: [PATCH] PaperCube POM Changes
  2 files changed, 40 insertions(+), 10 deletions(-)
 
 diff --git a/pom.xml b/pom.xml
-index c3844581..0d55737e 100644
+index 9cbd4880f..0801b0eaf 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -1,12 +1,13 @@
@@ -25,9 +25,9 @@ index c3844581..0d55737e 100644
 -
 +-->
      <properties>
+         <!-- <skipTests>true</skipTests> Paper - This [was] not going to end well -->
          <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-         <api.version>unknown</api.version>
-@@ -20,16 +21,21 @@
+@@ -21,16 +22,21 @@
      </properties>
  
      <parent>
@@ -54,8 +54,8 @@ index c3844581..0d55737e 100644
              <version>${project.version}</version>
              <scope>compile</scope>
          </dependency>
-@@ -86,6 +92,30 @@
-             <version>6.2.1</version>
+@@ -87,6 +93,30 @@
+             <version>7.1</version>
              <scope>compile</scope>
          </dependency>
 +        <dependency>
@@ -85,7 +85,7 @@ index c3844581..0d55737e 100644
          <dependency>
              <groupId>org.xerial</groupId>
              <artifactId>sqlite-jdbc</artifactId>
-@@ -135,15 +165,15 @@
+@@ -136,15 +166,15 @@
  
      <!-- This builds a completely 'ready to start' jar with all dependencies inside -->
      <build>
@@ -105,7 +105,7 @@ index c3844581..0d55737e 100644
                  </configuration>
                  <executions>
 diff --git a/src/main/java/org/bukkit/craftbukkit/util/Versioning.java b/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
-index 674096ca..03d006de 100644
+index 674096cab..03d006de0 100644
 --- a/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
 +++ b/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
 @@ -11,7 +11,7 @@ public final class Versioning {

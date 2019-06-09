@@ -1,15 +1,15 @@
-From 8c1fd2f159cc1d7b48feefdd59be71250327b8e1 Mon Sep 17 00:00:00 2001
+From 2982f0db86b261fd02dac136a1cb6221667193b1 Mon Sep 17 00:00:00 2001
 From: Brokkonaut <hannos17@gmx.de>
 Date: Sat, 8 Jun 2019 22:49:14 +0200
 Subject: [PATCH] Disable spigots activation range
 
 It causes so many bugs..
 ---
- src/main/java/org/spigotmc/ActivationRange.java | 167 +-----------------------
- 1 file changed, 4 insertions(+), 163 deletions(-)
+ src/main/java/org/spigotmc/ActivationRange.java | 171 +-----------------------
+ 1 file changed, 4 insertions(+), 167 deletions(-)
 
 diff --git a/src/main/java/org/spigotmc/ActivationRange.java b/src/main/java/org/spigotmc/ActivationRange.java
-index 8f0a999b..c1c6b70c 100644
+index 081789a8f..c1c6b70c1 100644
 --- a/src/main/java/org/spigotmc/ActivationRange.java
 +++ b/src/main/java/org/spigotmc/ActivationRange.java
 @@ -79,27 +79,7 @@ public class ActivationRange
@@ -160,7 +160,7 @@ index 8f0a999b..c1c6b70c 100644
      }
  
      /**
-@@ -286,44 +165,6 @@ public class ActivationRange
+@@ -286,48 +165,6 @@ public class ActivationRange
       */
      public static boolean checkIfActive(Entity entity)
      {
@@ -183,9 +183,13 @@ index 8f0a999b..c1c6b70c 100644
 -                    entity.activatedTick = MinecraftServer.currentTick + 20;
 -                }
 -                isActive = true;
+-                // Paper start
+-            } else if (entity instanceof EntityInsentient && ((EntityInsentient) entity).targetSelector.hasTasks()) {
+-                isActive = true;
 -            }
+-            // Paper end
 -            // Add a little performance juice to active entities. Skip 1/4 if not immune.
--        } else if ( !entity.defaultActivationState && entity.ticksLived % 4 == 0 && !checkEntityImmunities( entity ) )
+-        } else if ( !entity.defaultActivationState && entity.ticksLived % 4 == 0 && !(entity instanceof EntityInsentient && ((EntityInsentient) entity).targetSelector.hasTasks()) && !checkEntityImmunities( entity ) ) // Paper - add targetSelector.hasTasks
 -        {
 -            isActive = false;
 -        }
